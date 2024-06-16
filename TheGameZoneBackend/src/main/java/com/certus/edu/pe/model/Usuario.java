@@ -14,9 +14,12 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
         @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id=:id"),
-        @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario=:nombreUsuario"),
+        @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre=:nombre"),
+        @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido=:apellido"),
+        @NamedQuery(name = "Usuario.findByEdad", query = "SELECT u FROM Usuario u WHERE u.edad=:edad"),
         @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email=:email"),
-        @NamedQuery(name = "Usuario.findByContraseña", query = "SELECT u FROM Usuario u WHERE u.contraseña=:contraseña")
+        @NamedQuery(name = "Usuario.findByContraseña", query = "SELECT u FROM Usuario u WHERE u.contraseña=:contraseña"),
+        @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username=:username")
 })
 public class Usuario implements Serializable {
 
@@ -28,8 +31,16 @@ public class Usuario implements Serializable {
     private Long id;
 
     @Basic(optional = false)
-    @Column(name = "nombreUsuario")
-    private String nombreUsuario;
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Basic(optional = false)
+    @Column(name = "apellido")
+    private String apellido;
+
+    @Basic(optional = false)
+    @Column(name = "edad")
+    private int edad;
 
     @Basic(optional = false)
     @Column(name = "email")
@@ -39,15 +50,22 @@ public class Usuario implements Serializable {
     @Column(name = "contraseña")
     private String contraseña;
 
+    @Basic(optional = false)
+    @Column(name = "username")
+    private String username;
+
     public Usuario() {
 
     }
 
-    public Usuario(Long id, String nombreUsuario, String email, String contraseña) {
+    public Usuario(Long id, String nombre, String apellido, String email, int edad, String contraseña, String username) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
+        this.edad = edad;
         this.contraseña = contraseña;
+        this.username = username;
     }
 
     public Long getId() {
@@ -58,12 +76,28 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public String getEmail() {
@@ -82,17 +116,25 @@ public class Usuario implements Serializable {
         this.contraseña = contraseña;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(nombreUsuario, usuario.nombreUsuario) && Objects.equals(email, usuario.email) && Objects.equals(contraseña, usuario.contraseña);
+        return edad == usuario.edad && Objects.equals(id, usuario.id) && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido, usuario.apellido) && Objects.equals(email, usuario.email) && Objects.equals(contraseña, usuario.contraseña) && Objects.equals(username, usuario.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombreUsuario, email, contraseña);
+        return Objects.hash(id, nombre, apellido, edad, email, contraseña, username);
     }
 
     @Override

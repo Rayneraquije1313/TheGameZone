@@ -1,0 +1,53 @@
+package com.certus.edu.pe.services;
+
+import com.certus.edu.pe.model.Compra;
+import com.certus.edu.pe.model.CompraProducto;
+import com.certus.edu.pe.repositorio.CompraProductoRepositorio;
+import com.certus.edu.pe.repositorio.CompraRepositorio;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class CompraServices {
+
+    @Autowired
+    public CompraRepositorio repositorio;
+
+    public List<Compra> listar(){
+        return repositorio.findAll();
+    }
+
+    public Compra guardar(Compra compra){
+        return repositorio.save(compra);
+    }
+
+    public Compra buscar(Long id){
+        return repositorio.findById(id).get();
+    }
+
+    public Compra actualizaCompraProducto(Compra compra){
+
+        Compra compraActual =repositorio.findById(compra.getId()).get();
+        compraActual.setId(compra.getId());
+        compraActual.setUsuario(compra.getUsuario());
+        compraActual.setFechaCompra(compra.getFechaCompra());
+        Compra compraActualActualizado = repositorio.save(compra);
+        return compraActualActualizado;
+    }
+
+    public void eliminar(Long id){
+        repositorio.deleteById(id);
+    }
+
+    public void actualizar(Long id, Compra compra){
+        Compra compraActualizado = repositorio.findById(id).get();
+        compraActualizado.setId(compra.getId());
+        compraActualizado.setUsuario(compra.getUsuario());
+        compraActualizado.setFechaCompra(compra.getFechaCompra());
+        repositorio.save(compraActualizado);
+    }
+}

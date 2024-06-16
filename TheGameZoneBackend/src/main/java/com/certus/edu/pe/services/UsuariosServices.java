@@ -30,9 +30,11 @@ public class UsuariosServices {
     public Usuario actualizarUsuario(Usuario usuario) {
         Usuario usuarioActual = repositorio.findById(usuario.getId()).get();
         usuarioActual.setId(usuario.getId());
-        usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioActual.setNombre(usuario.getNombre());
+        usuarioActual.setApellido(usuario.getApellido());
         usuarioActual.setEmail(usuario.getEmail());
         usuario.setContraseña(usuario.getContraseña());
+        usuarioActual.setUsername(usuario.getUsername());
         return usuarioActual;
 
     }
@@ -43,9 +45,11 @@ public class UsuariosServices {
     public void actualizar(Long id, Usuario usuario) {
         Usuario usuarioActual = repositorio.findById(id).get();
         usuarioActual.setId(usuario.getId());
-        usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioActual.setNombre(usuario.getNombre());
+        usuarioActual.setApellido(usuario.getApellido());
         usuarioActual.setEmail(usuario.getEmail());
-        usuarioActual.setContraseña(usuario.getContraseña());
+        usuario.setContraseña(usuario.getContraseña());
+        usuarioActual.setUsername(usuario.getUsername());
         repositorio.save(usuarioActual);
     }
 }
