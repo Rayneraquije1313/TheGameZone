@@ -20,20 +20,24 @@ public class Producto implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "tipo")
-    private int tipo;
+    private String tipo;
 
-    @Basic(optional = false)
-    @Column(name = "descripcion")
-    private int descripcion;
+    @JoinColumn(name = "funko",referencedColumnName = "idFunko",nullable = true)
+    @ManyToOne(optional = true)
+    private Funko funko;
+
+    @JoinColumn(name = "juego",referencedColumnName = "idJuego",nullable = true)
+    @ManyToOne(optional = true)
+    private Juego juego;
 
     public Producto() {
 
     }
 
-    public Producto(Long id, int tipo, int descripcion) {
+    public Producto(Long id, String tipo, Funko funko) {
         this.id = id;
         this.tipo = tipo;
-        this.descripcion = descripcion;
+        this.funko = funko;
     }
 
     public Long getId() {
@@ -44,20 +48,20 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public int getTipo() {
+    public Funko getFunko() {
+        return funko;
+    }
+
+    public void setFunko(Funko funko) {
+        this.funko = funko;
+    }
+
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public int getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(int descripcion) {
-        this.descripcion = descripcion;
     }
 
     @Override
@@ -65,12 +69,12 @@ public class Producto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return tipo == producto.tipo && descripcion == producto.descripcion && Objects.equals(id, producto.id);
+        return Objects.equals(id, producto.id) && Objects.equals(tipo, producto.tipo) && Objects.equals(funko, producto.funko);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipo, descripcion);
+        return Objects.hash(id, tipo, funko);
     }
 
     @Override

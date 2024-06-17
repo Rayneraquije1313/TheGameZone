@@ -19,12 +19,8 @@ public class Funko implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-
-    @JoinColumn(name = "idProducto",referencedColumnName = "idProducto")
-    @ManyToOne(optional = false)
-    private Producto producto;
+    @Column(name="idFunko")
+    private Long id;
 
     @Basic(optional = false)
     @Column(name="nombre")
@@ -46,29 +42,20 @@ public class Funko implements Serializable {
 
     }
 
-    public Funko(Integer id, Producto producto, String nombre, String franquicia, String tamaño, BigDecimal precio) {
+    public Funko(Long id, String nombre, String franquicia, String tamaño, BigDecimal precio) {
         this.id = id;
-        this.producto = producto;
         this.nombre = nombre;
         this.franquicia = franquicia;
         this.tamaño = tamaño;
         this.precio = precio;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
     }
 
     public String getNombre() {
@@ -108,12 +95,12 @@ public class Funko implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Funko funko = (Funko) o;
-        return Objects.equals(id, funko.id) && Objects.equals(producto, funko.producto) && Objects.equals(nombre, funko.nombre) && Objects.equals(franquicia, funko.franquicia) && Objects.equals(tamaño, funko.tamaño) && Objects.equals(precio, funko.precio);
+        return Objects.equals(id, funko.id) && Objects.equals(nombre, funko.nombre) && Objects.equals(franquicia, funko.franquicia) && Objects.equals(tamaño, funko.tamaño) && Objects.equals(precio, funko.precio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, producto, nombre, franquicia, tamaño, precio);
+        return Objects.hash(id, nombre, franquicia, tamaño, precio);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.certus.edu.pe.services;
 
 import com.certus.edu.pe.model.Compra;
-import com.certus.edu.pe.model.CompraProducto;
-import com.certus.edu.pe.repositorio.CompraProductoRepositorio;
 import com.certus.edu.pe.repositorio.CompraRepositorio;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +41,8 @@ public class CompraServices {
         repositorio.deleteById(id);
     }
 
-    public void actualizar(Long id, Compra compra){
-        Compra compraActualizado = repositorio.findById(id).get();
+    public void actualizar(Compra compra){
+        Compra compraActualizado = repositorio.findById(compra.getId()).get();
         compraActualizado.setId(compra.getId());
         compraActualizado.setUsuario(compra.getUsuario());
         compraActualizado.setFechaCompra(compra.getFechaCompra());

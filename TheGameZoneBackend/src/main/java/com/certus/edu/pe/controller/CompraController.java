@@ -2,8 +2,10 @@ package com.certus.edu.pe.controller;
 
 
 import com.certus.edu.pe.exception.ExceptionNotFound;
+import com.certus.edu.pe.model.Compra;
 import com.certus.edu.pe.model.Producto;
 import com.certus.edu.pe.model.Usuario;
+import com.certus.edu.pe.services.CompraServices;
 import com.certus.edu.pe.services.ProductoServices;
 import com.certus.edu.pe.services.UsuariosServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,34 +21,34 @@ import java.util.List;
 public class CompraController {
 
     @Autowired
-    private ProductoServices services;
+    private CompraServices services;
 
     @GetMapping
     public ResponseEntity<Object> listar() {
-        List<Producto>listar = services.listar();
+        List<Compra>listar = services.listar();
         return ResponseEntity.ok(listar);
     }
 
     @GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Object> buscar(@PathVariable Long id) {
-        Producto producto = services.buscar(id);
-        if (producto == null)
+        Compra Compra = services.buscar(id);
+        if (Compra == null)
             throw new ExceptionNotFound("Usuario no encontrado");
-        return ResponseEntity.ok(producto);
+        return ResponseEntity.ok(Compra);
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Object> crear(@RequestBody Producto producto) {
-        services.guardar(producto);
-        return ResponseEntity.ok(producto);
+    public ResponseEntity<Object> crear(@RequestBody Compra compra) {
+        services.guardar(compra);
+        return ResponseEntity.ok(compra);
     }
 
     @PutMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Object> actualizarUsuario(@PathVariable ("id")int id, @RequestBody Producto producto) {
-        services.actualizar(producto);
-        return ResponseEntity.ok(producto);
+    public ResponseEntity<Object> actualizarUsuario(@PathVariable ("id")int id, @RequestBody Compra compra) {
+        services.actualizar(compra);
+        return ResponseEntity.ok(compra);
     }
 
     @DeleteMapping(value = "/{id}")

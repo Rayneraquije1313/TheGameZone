@@ -33,7 +33,6 @@ public class ProductoServices {
 
         Producto productoActual =repositorio.findById(producto.getId()).get();
         productoActual.setId(producto.getId());
-        productoActual.setDescripcion(producto.getDescripcion());
         productoActual.setTipo(producto.getTipo());
         Producto productoActualizado = repositorio.save(producto);
         return productoActualizado;
@@ -46,8 +45,8 @@ public class ProductoServices {
     public void actualizar(Long id, Producto producto){
         Producto productoActualizado = repositorio.findById(id).get();
         productoActualizado.setId(producto.getId());
-        productoActualizado.setDescripcion(producto.getDescripcion());
         productoActualizado.setTipo(producto.getTipo());
+        productoActualizado.setFunko(producto.getFunko());
         repositorio.save(productoActualizado);
     }
 }

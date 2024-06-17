@@ -13,14 +13,6 @@ import java.util.Objects;
 @Entity
 @Data
 @Table(name= "sugerencias")
-@NamedQueries({
-        @NamedQuery(name = "Sugerencias.findAll", query = "SELECT s FROM Sugerencias s"),
-        @NamedQuery(name = "Sugerencias.findById", query = "SELECT s FROM Sugerencias s WHERE s.id=:id"),
-        @NamedQuery(name = "Sugerencias.findByUsuario", query = "SELECT s FROM Sugerencias s WHERE s.usuario=:usuario"),
-        @NamedQuery(name = "Sugerencias.findBySugerencia", query = "SELECT s FROM Sugerencias s WHERE s.sugerencia=:sugerencia"),
-        @NamedQuery(name = "Sugerencias.findByFechaSugerencia", query = "SELECT s FROM Sugerencias s WHERE s.fechaSugerencia=:fechaSugerencia"),
-})
-
 public class Sugerencias implements Serializable {
 
     private static final long serialVersionUID = 1L;

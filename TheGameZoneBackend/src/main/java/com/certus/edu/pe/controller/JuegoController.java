@@ -3,9 +3,9 @@ package com.certus.edu.pe.controller;
 
 import com.certus.edu.pe.exception.ExceptionNotFound;
 import com.certus.edu.pe.model.Funko;
-import com.certus.edu.pe.model.Producto;
+import com.certus.edu.pe.model.Juego;
 import com.certus.edu.pe.services.FunkoServices;
-import com.certus.edu.pe.services.ProductoServices;
+import com.certus.edu.pe.services.JuegoServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,37 +15,37 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/thegamezone/funko")
-public class FunkoController {
+@RequestMapping("/thegamezone/juego")
+public class JuegoController {
 
     @Autowired
-    private FunkoServices services;
+    private JuegoServices services;
 
     @GetMapping
     public ResponseEntity<Object>lista() {
-        List<Funko>listar = services.lista();
+        List<Juego>listar = services.lista();
         return ResponseEntity.ok(listar);
     }
 
     @GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Object> buscar(@PathVariable Long id) {
-        Funko funko = services.buscar(id);
-        if (funko == null)
+        Juego juego = services.buscar(id);
+        if (juego == null)
             throw new ExceptionNotFound("no encontrado");
-        return ResponseEntity.ok(funko);
+        return ResponseEntity.ok(juego);
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Object> crear(@RequestBody Funko funko) {
-        services.guardar(funko);
-        return ResponseEntity.ok(funko);
+    public ResponseEntity<Object> crear(@RequestBody Juego juego) {
+        services.guardar(juego);
+        return ResponseEntity.ok(juego);
     }
 
     @PutMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Object> actualizar(@PathVariable ("id")int id, @RequestBody Funko funko) {
-        Funko actualizar = services.actualizaSugerencias(funko);
+    public ResponseEntity<Object> actualizar(@PathVariable ("id")int id, @RequestBody Juego juego) {
+        Juego actualizar = services.actualizaSugerencias(juego);
         return ResponseEntity.ok(actualizar);
     }
 

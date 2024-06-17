@@ -3,6 +3,7 @@ package com.certus.edu.pe.services;
 import com.certus.edu.pe.exception.ExceptionNotFound;
 import com.certus.edu.pe.model.Funko;
 import com.certus.edu.pe.model.Producto;
+import com.certus.edu.pe.model.Usuario;
 import com.certus.edu.pe.repositorio.FunkoRepositorio;
 import com.certus.edu.pe.repositorio.ProductoRepositorio;
 import jakarta.transaction.Transactional;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @Transactional
 public class FunkoServices {
 
     @Autowired
-    public ProductoRepositorio productoRepositorio;
     public FunkoRepositorio repositorio;
 
     public List<Funko> lista(){
@@ -28,33 +30,35 @@ public class FunkoServices {
         return repositorio.save(funko);
     }
 
-    public Funko buscar(Integer id){
+    public Funko buscar(Long id){
         return repositorio.findById(id).get();
     }
 
-    public Funko actualizaSugerencias(Integer idFunko,Funko funko){
+    public Funko actualizaSugerencias(Funko funko){
 
-        Funko FunkoaActual =repositorio.findById(idFunko).get();
-        FunkoaActual.setNombre(funko.getNombre());
-        FunkoaActual.setFranquicia(funko.getFranquicia());
-        FunkoaActual.setTamaño(funko.getTamaño());
-        FunkoaActual.setProducto(funko.getProducto());
+        Funko actual =repositorio.findById(funko.getId()).get();
+        actual.setId(funko.getId());
+        actual.setNombre(funko.getNombre());
+        actual.setFranquicia(funko.getFranquicia());
+        actual.setPrecio(funko.getPrecio());
+        actual.setTamaño(funko.getTamaño());
         Funko FunkoActualizado = repositorio.save(funko);
-
-        if (funko.getProducto() != null && funko.getProducto().getId() != null) {
-            Producto producto = productoRepositorio.findById(funko.getProducto().getId())
-                    .orElseThrow(() -> new ExceptionNotFound("Producto not found with id " + funko.getProducto().getId()));
-            funko.setProducto(producto);
-        }
-
-
         return FunkoActualizado;
     }
 
-    public void eliminar(Integer id){
+    public void eliminar(Long id){
         repositorio.deleteById(id);
     }
 
+    public void actualizar(Long id, Funko funko) {
+        Funko actual = repositorio.findById(id).get();
+        actual.setId(funko.getId());
+        actual.setNombre(funko.getNombre());
+        actual.setFranquicia(funko.getFranquicia());
+        actual.setPrecio(funko.getPrecio());
+        actual.setTamaño(funko.getTamaño());
+        repositorio.save(actual);
+    }
 
 
 }

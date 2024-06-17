@@ -11,16 +11,6 @@ import java.util.Objects;
 @Entity
 @Data
 @Table(name= "usuario")
-@NamedQueries({
-        @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-        @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id=:id"),
-        @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre=:nombre"),
-        @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido=:apellido"),
-        @NamedQuery(name = "Usuario.findByEdad", query = "SELECT u FROM Usuario u WHERE u.edad=:edad"),
-        @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email=:email"),
-        @NamedQuery(name = "Usuario.findByContraseña", query = "SELECT u FROM Usuario u WHERE u.contraseña=:contraseña"),
-        @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username=:username")
-})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
